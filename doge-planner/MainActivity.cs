@@ -2,45 +2,30 @@
 using Android.Widget;
 using Android.OS;
 using System;
+using Android.Content;
+using System.Collections.Generic;
 
 namespace doge_planner
 {
     [Activity(Label = "doge_planner", MainLauncher = true)]
     public class MainActivity : Activity
     {
-        TextView txtLizScore;
-
-        int lizScore;
-
-        TextView txtBrettScore;
-
-        int brettScore;
-
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(savedInstanceState);
+            base.OnCreate(bundle);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            txtLizScore = FindViewById<TextView>(Resource.Id.txtLizScore);
+            Button scoreKeeperButton = FindViewById<Button>(Resource.Id.scoreKeeperButton);
+            scoreKeeperButton.Click += Button_Click;
 
-            FindViewById<Button>(Resource.Id.btnLizIncrement).Click += (o, e) =>
-            txtLizScore.Text = (++lizScore).ToString();
+            void Button_Click(object sender, EventArgs e)
+            {
+                Intent intent = new Intent(this, typeof(ScoreKeeperActivity));
+                StartActivity(intent);
+            }
 
-            FindViewById<Button>(Resource.Id.btnLizDecrement).Click += (o, e) =>
-            txtLizScore.Text = (--lizScore).ToString();
-
-
-            txtBrettScore = FindViewById<TextView>(Resource.Id.txtBrettScore);
-
-            FindViewById<Button>(Resource.Id.btnBrettIncrement).Click += (o, e) =>
-            txtBrettScore.Text = (++brettScore).ToString();
-
-            FindViewById<Button>(Resource.Id.btnBrettDecrement).Click += (o, e) =>
-            txtBrettScore.Text = (--brettScore).ToString();
         }
-        
     }
 }
 
